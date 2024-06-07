@@ -1,0 +1,11 @@
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    list-style-type: none;
+}
+
+.gallery li {
+    display: flex;
+    justify-content: center;
+}
