@@ -1,6 +1,7 @@
-// src/components/SearchBar/SearchBar.jsx
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import styles from './SearchBar.module.css';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchBar = ({ onSubmit }) => {
     const [query, setQuery] = useState('');
@@ -9,8 +10,7 @@ const SearchBar = ({ onSubmit }) => {
         setQuery(e.target.value);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleIconClick = () => {
         if (query.trim() === '') {
             alert('Please enter a search term');
             return;
@@ -20,9 +20,10 @@ const SearchBar = ({ onSubmit }) => {
     };
 
     return (
-        <header>
-            <form onSubmit={handleSubmit}>
+        <header className={styles.header}>
+            <form className={styles.form}>
                 <input
+                    className={styles.input}
                     type="text"
                     autoComplete="off"
                     autoFocus
@@ -30,7 +31,7 @@ const SearchBar = ({ onSubmit }) => {
                     value={query}
                     onChange={handleInputChange}
                 />
-                <button type="submit">Search</button>
+                <FaSearch className={styles.icon} onClick={handleIconClick} />
             </form>
         </header>
     );
