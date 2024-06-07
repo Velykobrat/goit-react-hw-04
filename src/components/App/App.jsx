@@ -1,7 +1,6 @@
 // src/App.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Toaster } from 'react-hot-toast';
 import SearchBar from '../SearchBar/SearchBar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import Loader from '../Loader/Loader';
@@ -9,78 +8,71 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 
-const API_KEY = 'BalC9pYc4FBrCsIKEVlYs4A4XHBdSRUlwmaFEmdpm9I';
-const BASE_URL = 'https://api.unsplash.com/search/photos';
-
-function App() {
-    const [query, setQuery] = useState('');
+const App = () => {
     const [images, setImages] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [query, setQuery] = useState('');
     const [page, setPage] = useState(1);
-    const [showModal, setShowModal] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [modalImage, setModalImage] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         if (!query) return;
 
         const fetchImages = async () => {
-            setLoading(true);
-            setError(null);
-
+            setIsLoading(true);
             try {
-                const response = await axios.get(`${BASE_URL}`, {
-                    params: {
-                        query,
-                        page,
-                        per_page: 12,
-                        client_id: API_KEY,
-                    },
-                });
-
-                setImages(prevImages => [...prevImages, ...response.data.results]);
+                const response = await axios.get(
+                    `https://api.unsplash.com/search/photos?page=${page}&query=${query}&client_id=BalC9pYc4FBrCsIKEVlYs4A4XHBdSRUlwmaFEmdpm9I`
+                );
+                setImages((prevImages) => [...prevImages, ...response.data.results]);
             } catch (error) {
-                setError('Failed to fetch images');
+                setError(error.message);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         };
 
         fetchImages();
     }, [query, page]);
 
-    const handleSearch = (searchQuery) => {
+    const handleSearchSubmit = (searchQuery) => {
         setQuery(searchQuery);
-        setImages([]);
         setPage(1);
+        setImages([]);
     };
 
     const handleLoadMore = () => {
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
     };
 
-    const openModal = (image) => {
-        setSelectedImage(image);
-        setShowModal(true);
+    const handleImageClick = (image) => {
+        setModalImage(image);
+        setIsModalOpen(true);
     };
 
-    const closeModal = () => {
-        setShowModal(false);
-        setSelectedImage(null);
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setModalImage(null);
     };
 
     return (
         <div>
-            <h1>Image Search App</h1>
-            <SearchBar onSubmit={handleSearch} />
+            <SearchBar onSubmit={handleSearchSubmit} />
             {error && <ErrorMessage message={error} />}
-            <ImageGallery images={images} onImageClick={openModal} />
-            {loading && <Loader />}
-            {images.length > 0 && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
-            {showModal && <ImageModal image={selectedImage} onClose={closeModal} />}
-            <Toaster />
+            <ImageGallery images={images} onImageClick={handleImageClick} />
+            {isLoading && <Loader />}
+            {images.length > 0 && !isLoading && <LoadMoreBtn onClick={handleLoadMore} />}
+            {modalImage && (
+                <ImageModal
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    image={modalImage}
+                />
+            )}
         </div>
     );
-}
+};
 
 export default App;
