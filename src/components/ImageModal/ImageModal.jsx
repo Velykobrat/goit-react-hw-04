@@ -1,11 +1,12 @@
 // src/components/ImageModal/ImageModal.jsx
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import styles from './ImageModal.module.css'; // Імпортуємо стилі
 
 Modal.setAppElement('#root');
 
 const ImageModal = ({ isOpen, onClose, image }) => {
-    // Обчислюємо ширину та висоту модального вікна
+    // Обчислення ширини та висоти модального вікна
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const imageWidth = image.width;
@@ -13,7 +14,7 @@ const ImageModal = ({ isOpen, onClose, image }) => {
     const maxWidth = windowWidth - 40; // 40px відступи від країв вікна
     const maxHeight = windowHeight - 40;
 
-    // Визначаємо, яка сторона має бути обмежена розміром
+    // Визначення, яка сторона має бути обмежена розміром
     const aspectRatio = imageWidth / imageHeight;
     let modalWidth, modalHeight;
     if (aspectRatio > 1) {
@@ -48,8 +49,8 @@ const ImageModal = ({ isOpen, onClose, image }) => {
             contentLabel="Image Modal"
             style={modalStyles} // Встановлюємо стилі модального вікна
         >
-            <div onClick={onClose}>
-                <img src={image.urls.regular} alt={image.alt_description} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <div className={styles.imageContainer} onClick={onClose}>
+                <img src={image.urls.regular} alt={image.alt_description} className={styles.image} />
             </div>
         </Modal>
     );
