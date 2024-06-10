@@ -19,9 +19,15 @@ const SearchBar = ({ onSubmit }) => {
         setQuery('');
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleIconClick();
+        }
+    };
+
     return (
         <header className={styles.header}>
-            <form className={styles.form}>
+            <form className={styles.form} onKeyPress={handleKeyPress}>
                 <input
                     className={styles.input}
                     type="text"

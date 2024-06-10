@@ -7,6 +7,7 @@ import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
+import styles from './App.module.css';
 
 
 const App = () => {
@@ -59,7 +60,7 @@ const App = () => {
     };
 
     return (
-        <div>
+        <div className={styles['app-container']}>
             <SearchBar onSubmit={handleSearchSubmit} />
             {error && <ErrorMessage message={error} />}
             <ImageGallery images={images} onImageClick={handleImageClick} />

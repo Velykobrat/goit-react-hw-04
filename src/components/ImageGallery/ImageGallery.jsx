@@ -3,13 +3,15 @@ import styles from './ImageGallery.module.css'; // Імпортуємо стил
 
 const ImageGallery = ({ images, onImageClick }) => {
     return (
-        <ul className={styles.gallery}> {/* Додаємо клас стилів для галереї */}
-            {images.map(image => (
-                <li key={image.id}>
-                    <ImageCard image={image} onClick={() => onImageClick(image)} />
-                </li>
-            ))}
-        </ul>
+        <div className={styles['gallery-container']}>
+            <ul className={styles.gallery}>
+                {images.map(image => (
+                    <li key={image.id}>
+                        <ImageCard image={image} onClick={() => onImageClick(image)} />
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 };
 

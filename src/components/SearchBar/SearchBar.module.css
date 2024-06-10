@@ -2,8 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
     background-color: #3f51b5;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 40px;
 }
 
 .form {
@@ -24,26 +30,12 @@
     outline: none;
 }
 
-.button {
-    padding: 10px 20px;
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.button:hover {
-    background-color: #303f9f;
-}
-
-
-/* src/components/SearchBar/SearchBar.module.css */
-
 .icon {
     padding: 10px;
     color: #3f51b5;
     cursor: pointer;
+    border: none;
+    background: none;
 }
 
 .icon:hover {
