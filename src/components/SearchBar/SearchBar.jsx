@@ -10,7 +10,8 @@ const SearchBar = ({ onSubmit }) => {
         setQuery(e.target.value);
     };
 
-    const handleIconClick = () => {
+    const handleFormSubmit = (e) => {
+        e.preventDefault(); // Запобігаємо стандартній поведінці форми
         if (query.trim() === '') {
             alert('Please enter a search term');
             return;
@@ -19,15 +20,9 @@ const SearchBar = ({ onSubmit }) => {
         setQuery('');
     };
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleIconClick();
-        }
-    };
-
     return (
         <header className={styles.header}>
-            <form className={styles.form} onKeyPress={handleKeyPress}>
+            <form className={styles.form} onSubmit={handleFormSubmit}>
                 <input
                     className={styles.input}
                     type="text"
@@ -37,7 +32,9 @@ const SearchBar = ({ onSubmit }) => {
                     value={query}
                     onChange={handleInputChange}
                 />
-                <FaSearch className={styles.icon} onClick={handleIconClick} />
+                <button type="submit" className={styles.icon}>
+                    <FaSearch />
+                </button>
             </form>
         </header>
     );
