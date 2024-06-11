@@ -1,4 +1,3 @@
-// src/components/ImageModal/ImageModal.jsx
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styles from './ImageModal.module.css'; // Імпортуємо стилі
@@ -25,7 +24,6 @@ const ImageModal = ({ isOpen, onClose, image }) => {
         modalWidth = modalHeight * aspectRatio;
     }
 
-    // Стилі для модального вікна
     const modalStyles = {
         content: {
             width: `${modalWidth}px`,
@@ -47,7 +45,7 @@ const ImageModal = ({ isOpen, onClose, image }) => {
             isOpen={isOpen}
             onRequestClose={onClose}
             contentLabel="Image Modal"
-            style={modalStyles} // Встановлюємо стилі модального вікна
+            style={modalStyles} 
         >
             <div className={styles.imageContainer} onClick={onClose}>
                 <img src={image.urls.regular} alt={image.alt_description} className={styles.image} />

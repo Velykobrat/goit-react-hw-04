@@ -1,4 +1,3 @@
-// src/components/ErrorMessage/ErrorMessage.jsx
 import PropTypes from 'prop-types';
 
 const ErrorMessage = ({ message }) => {
