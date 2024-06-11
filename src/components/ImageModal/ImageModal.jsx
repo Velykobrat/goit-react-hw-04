@@ -10,8 +10,9 @@ const ImageModal = ({ isOpen, onClose, image }) => {
     const windowHeight = window.innerHeight;
     const imageWidth = image.width;
     const imageHeight = image.height;
+    const headerHeight = 70;
     const maxWidth = windowWidth - 40; // 40px відступи від країв вікна
-    const maxHeight = windowHeight - 40;
+    const maxHeight = windowHeight - 40 - headerHeight; // Відступаємо на висоту хедера
 
     // Визначення, яка сторона має бути обмежена розміром
     const aspectRatio = imageWidth / imageHeight;
@@ -28,7 +29,7 @@ const ImageModal = ({ isOpen, onClose, image }) => {
         content: {
             width: `${modalWidth}px`,
             height: `${modalHeight}px`,
-            top: '50%',
+            top: `calc(50% + ${headerHeight / 2}px)`,
             left: '50%',
             transform: 'translate(-50%, -50%)',
             padding: 0,
